@@ -11,7 +11,7 @@ class SimpleCheckoutController(val simpleCheckoutService: SimpleCheckoutService)
 
     @PostMapping("/checkout")
     fun checkout(@RequestBody requestBody: Array<String>): SimpleCheckoutResponse {
-        val price = simpleCheckoutService.checkout()
+        val price = simpleCheckoutService.checkout(emptyList())
 
         return SimpleCheckoutResponse(price)
     }

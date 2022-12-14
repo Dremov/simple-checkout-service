@@ -32,7 +32,7 @@ class SimpleCheckoutControllerTest {
                 "]"
         val expectedPrice = 360
 
-        every { simpleCheckoutServiceMock.checkout() } returns expectedPrice
+        every { simpleCheckoutServiceMock.checkout(any()) } returns expectedPrice
 
         mockMvc.perform(
             MockMvcRequestBuilders.post("/checkout")
@@ -43,7 +43,7 @@ class SimpleCheckoutControllerTest {
             .andExpect(MockMvcResultMatchers.jsonPath("price").exists())
             .andExpect(MockMvcResultMatchers.jsonPath("price").value(expectedPrice))
 
-        verify(exactly = 1) { simpleCheckoutServiceMock.checkout() }
+        verify(exactly = 1) { simpleCheckoutServiceMock.checkout(any()) }
     }
 
     @Test
