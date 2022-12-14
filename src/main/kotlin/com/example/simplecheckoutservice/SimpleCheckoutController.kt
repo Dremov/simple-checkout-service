@@ -11,8 +11,13 @@ class SimpleCheckoutController(val simpleCheckoutService: SimpleCheckoutService)
 
     @PostMapping("/checkout")
     fun checkout(@RequestBody requestBody: Array<String>): SimpleCheckoutResponse {
-        val price = simpleCheckoutService.checkout(emptyList())
+        val price = simpleCheckoutService.checkout(parseRequestBody(requestBody))
 
         return SimpleCheckoutResponse(price)
+    }
+
+    private fun parseRequestBody(requestBody: Array<String>): List<Long> {
+
+        return requestBody.map { it.toLong() }
     }
 }

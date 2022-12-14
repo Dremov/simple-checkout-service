@@ -47,6 +47,31 @@ class SimpleCheckoutControllerTest {
     }
 
     @Test
+    fun `should convert input data`() {
+        val testBody = "[\n" +
+                "\"001\",\n" +
+                "\"002\",\n" +
+                "\"001\",\n" +
+                "\"004\",\n" +
+                "\"003\"\n" +
+                "]"
+        val expectedPrice = 360
+
+        every { simpleCheckoutServiceMock.checkout(any()) } returns expectedPrice
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/checkout")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(testBody)
+        )
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.jsonPath("price").exists())
+            .andExpect(MockMvcResultMatchers.jsonPath("price").value(expectedPrice))
+
+        verify(exactly = 1) { simpleCheckoutServiceMock.checkout(listOf(1L, 2L, 1L, 4L, 3L)) }
+    }
+
+    @Test
     fun `should return 400 if request is invalid`() {
         val testBody = "invalid request"
 
