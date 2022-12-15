@@ -13,9 +13,12 @@ class WatchRepository {
     )
 
 
-    fun getWatches(ids: List<Long>): List<Watch> {
+    fun getWatches(ids: List<Long>): List<Watch?> {
 
-        val watches = allWatches.filter { ids.contains(it.id) }
+        val watches = mutableListOf<Watch?>()
+        ids.forEach { passedId ->
+            watches.add(allWatches.find { it.id == passedId})
+        }
 
         return watches
     }

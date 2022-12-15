@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 class SimpleCheckoutService(val watchRepository: WatchRepository) {
     fun checkout(ids: List<Long>): Int {
         val requestedWatches = watchRepository.getWatches(ids)
-        val totalPrice = requestedWatches.sumOf { it.price }
+        val totalPrice = requestedWatches.sumOf { it?.price ?: 0 }
 
         return totalPrice
     }
