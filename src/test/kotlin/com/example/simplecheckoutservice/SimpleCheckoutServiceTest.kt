@@ -82,22 +82,30 @@ class SimpleCheckoutServiceTest {
 
     @Test
     fun `should return correct price with discounts`() {
-        val testIds = listOf(1L, 2L, 3L)
+        val testIds = listOf(1L, 1L, 1L, 2L, 2L)
         val testWatches = listOf(
             TestUtils.generateWatch(
                 id = 1L,
-                price = 1
+                price = 100
+            ),
+            TestUtils.generateWatch(
+                id = 1L,
+                price = 100
+            ),
+            TestUtils.generateWatch(
+                id = 1L,
+                price = 100
             ),
             TestUtils.generateWatch(
                 id = 2L,
-                price = 2
+                price = 80
             ),
             TestUtils.generateWatch(
-                id = 3L,
-                price = 3
-            )
+                id = 2L,
+                price = 80
+            ),
         )
-        val expectedPrice = 6
+        val expectedPrice = 320
 
         every { watchRepositoryMock.getWatches(any()) } returns testWatches
 
