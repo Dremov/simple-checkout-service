@@ -12,7 +12,6 @@ class WatchRepository {
         Watch(id = 4, name = "Casio", price = 30, discount = "")
     )
 
-
     fun getWatches(ids: List<Long>): List<Watch?> {
 
         val watches = mutableListOf<Watch?>()
